@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Picture</title>
+</head>
+<body>
+<h1>Adjust your picture</h1>
+<div id="menu">
+  <label for="distance">Border:</label>
+  <input type="range" id="distance" name="border" min="5" max="50" value="10" data-sizing="px">
+  <label for="blur">Blur:</label>
+  <input type="range" id="blur" name="blur" min="0" max="30" value="10" data-sizing="px">
+  <label for="color">Color:</label>
+  <input type="color" id="color" name="base" value="yellow">
+</div>
+
+<div id="imgKitt"></div>
+</body>
+</html>
+<style>
+  :root {
+    --base: yellow;
+    --blur: 5px;
+    --border: 20px;
+  }
+
+  body{
+    background-color: black;
+    color: white;
+  }
+
+  #imgKitt{
+    width: 400px;
+    height: 300px;
+    background-image: url('./kittens.jpg');
+    background-size: cover;
+    margin: auto;
+    border: var(--border) solid var(--base);
+    filter: blur(var(--blur));
+  }
+  h1{
+    text-align: center;
+  }
+ #menu{
+  width: 37%;
+  margin: auto;
+  margin-bottom: 30px;
+ }
+</style>
+<script>
+  const inputs = document.querySelectorAll('#menu input')
+
+ function handleUpdate() {
+    const suffix = this.dataset.sizing || '';
+    document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+  }
+  inputs.forEach(input => input.addEventListener('change', handleUpdate))
+  inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+  
+</script>
